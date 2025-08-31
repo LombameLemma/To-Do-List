@@ -1,5 +1,6 @@
 // Get references to the HTML elements
 const addButton = document.getElementById('addButton');
+const doneButton = document.getElementById('doneButton'); // Reference to the Done button
 const taskList = document.getElementById('taskList');
 const container = document.querySelector('.container');
 
@@ -46,6 +47,11 @@ addButton.addEventListener('click', () => {
             const newLi = document.createElement('li');
             newLi.textContent = newActivityText;
 
+            // Add a click event listener to the new list item
+            newLi.addEventListener('click', () => {
+                newLi.classList.toggle('completed');
+            });
+
             // Add the new list item to the task list
             taskList.appendChild(newLi);
 
@@ -64,4 +70,23 @@ addButton.addEventListener('click', () => {
             saveButton.click(); // Trigger the save button click
         }
     });
+});
+
+// Add a click event listener to the "Done" button
+doneButton.addEventListener('click', () => {
+    const listItems = taskList.querySelectorAll('li');
+    let hasCompletedTask = false;
+    listItems.forEach(item => {
+        if (item.classList.contains('completed')) {
+            item.remove();
+            hasCompletedTask = true;
+        }
+    });
+
+    if (hasCompletedTask) {
+        // You can add a message here to indicate tasks were removed,
+        // but for now we'll just remove them.
+    } else {
+        alert('No tasks selected to be marked as done!');
+    }
 });

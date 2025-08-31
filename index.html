@@ -3,37 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <!-- Link to Tailwind CSS library for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Link to Google Fonts for the 'Inter' font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Link to the external stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <title>To Do List</title>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg space-y-6">
-        <h1 class="text-4xl font-bold text-center text-gray-800">My To-Do List</h1>
-        
-        <div class="flex flex-col sm:flex-row items-center gap-4">
-            <input type="text" id="taskInput" placeholder="Add a new task..." class="flex-grow p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors">
-            <button id="addTaskBtn" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out whitespace-nowrap">Add Task</button>
-        </div>
+<link rel="stylesheet" href="style.css">
+<body>
+<div className="container">
+<h1>My To Do List </h1>
+<input  placeholder="Enter an activity">
+<ul className="Unordered">
+<li>Pray at 12:00 <button id="but">Done</button></li>
+<li>Drink water <buttonn id="but">Done</button></li>
+<li>Eat breakfast <button id="but">Done</button></li>
+</ul>
 
-        <ul id="taskList" class="space-y-3">
-            <!-- Initial list items -->
-            <li class="bg-gray-100 p-4 rounded-lg flex items-center justify-between text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-[1.01] hover:shadow-md cursor-pointer">
-                <span>Pray at 12:00</span>
-                <button class="done-btn bg-green-500 text-white px-3 py-1 text-sm rounded-md hover:bg-green-600 transition-colors">Done</button>
-            </li>
-            <li class="bg-gray-100 p-4 rounded-lg flex items-center justify-between text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-[1.01] hover:shadow-md cursor-pointer">
-                <span>Eat Breakfast</span>
-                <button class="done-btn bg-green-500 text-white px-3 py-1 text-sm rounded-md hover:bg-green-600 transition-colors">Done</button>
-            </li>
-        </ul>
-    </div>
+ <button id="button">Add</button>
+ 
+</div>
 
-    <!-- Link to the external JavaScript file -->
-    <script src="script.js"></script>
+   
+
+
+
+ <script src="index.js" ></script>  
 </body>
 </html>
