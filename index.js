@@ -1,62 +1,67 @@
-const taskInput = document.getElementById('taskInput');
-        const addTaskBtn = document.getElementById('addTaskBtn');
-        const taskList = document.getElementById('taskList');
-        const messageContainer = document.createElement('div');
-        messageContainer.className = 'fixed bottom-5 right-5 p-4 rounded-lg text-white font-semibold transition-opacity duration-500 opacity-0';
-        document.body.appendChild(messageContainer);
+// Get references to the HTML elements
+const addButton = document.getElementById('addButton');
+const taskList = document.getElementById('taskList');
+const container = document.querySelector('.container');
 
-        function showMessage(text, isError = false) {
-            messageContainer.textContent = text;
-            messageContainer.style.backgroundColor = isError ? '#ef4444' : '#10b981';
-            messageContainer.style.opacity = '1';
-            setTimeout(() => {
-                messageContainer.style.opacity = '0';
-            }, 3000);
+// Add a click event listener to the "Add" button
+addButton.addEventListener('click', () => {
+    // Check if an input field already exists to prevent multiple from appearing
+    const existingInputArea = document.querySelector('.input-area');
+    if (existingInputArea) {
+        return;
+    }
+
+    // Create a new div to hold the input field and save button
+    const inputArea = document.createElement('div');
+    inputArea.className = 'input-area';
+
+    // Create the input field
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'newActivity';
+    input.placeholder = 'Enter new activity...';
+
+    // Create the "Save" button
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.className = 'save-button';
+
+    // Append the input and save button to the new div
+    inputArea.appendChild(input);
+    inputArea.appendChild(saveButton);
+
+    // Insert the input area just before the button container
+    const buttonContainer = document.querySelector('.button-container');
+    container.insertBefore(inputArea, buttonContainer);
+
+    // Automatically focus on the new input field
+    input.focus();
+
+    // Add a click event listener to the "Save" button
+    saveButton.addEventListener('click', () => {
+        const newActivityText = input.value.trim();
+
+        if (newActivityText !== '') {
+            // Create a new list item
+            const newLi = document.createElement('li');
+            newLi.textContent = newActivityText;
+
+            // Add the new list item to the task list
+            taskList.appendChild(newLi);
+
+            // Remove the input area after the task is added
+            inputArea.remove();
+        } else {
+            // Use a simple alert to notify the user of an empty input
+            // In a real application, a custom modal or message would be better
+            alert('Please enter an activity!');
         }
+    });
 
-        function createTaskElement(taskText) {
-            const li = document.createElement('li');
-            li.className = 'bg-gray-100 p-4 rounded-lg flex items-center justify-between text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-[1.01] hover:shadow-md cursor-pointer';
-
-            const taskSpan = document.createElement('span');
-            taskSpan.textContent = taskText;
-            li.appendChild(taskSpan);
-
-            const doneButton = document.createElement('button');
-            doneButton.textContent = 'Done';
-            doneButton.className = 'done-btn bg-green-500 text-white px-3 py-1 text-sm rounded-md hover:bg-green-600 transition-colors';
-            li.appendChild(doneButton);
-
-            doneButton.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent the li click event from firing
-                li.classList.add('line-through', 'opacity-50', 'bg-gray-200');
-                li.classList.remove('cursor-pointer');
-                doneButton.remove();
-                showMessage('Task completed!');
-            });
-            
-            li.addEventListener('click', () => {
-                li.classList.toggle('bg-blue-100');
-            });
-            
-            return li;
+    // Add an event listener to the input field for the 'Enter' key
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            saveButton.click(); // Trigger the save button click
         }
-
-        addTaskBtn.addEventListener('click', () => {
-            const taskText = taskInput.value.trim();
-            if (taskText !== "") {
-                const newTask = createTaskElement(taskText);
-                taskList.appendChild(newTask);
-                taskInput.value = '';
-                showMessage('Task added successfully!');
-            } else {
-                showMessage('Please enter a task!', true);
-            }
-        });
-
-        // Event listener for "Enter" key on the input field
-        taskInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                addTaskBtn.click();
-            }
-        });
+    });
+});
