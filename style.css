@@ -18,3 +18,9 @@ body {
     max-width: 450px;
     text-align: center;
 }
+h1 {
+    color: #333;
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
